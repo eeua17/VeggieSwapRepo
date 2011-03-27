@@ -1,0 +1,5 @@
+To run the app need to first set up a database on Mysql, so from the MySQL command line :
+
+CREATE DATABASE veggieswap;
+USE veggieswap;
+GRANT ALL PRIVILEGES ON veggieswap.* TO 'rach'@'localhost' IDENTIFIED BY 'veggiepass' WITH GRANT OPTION;
