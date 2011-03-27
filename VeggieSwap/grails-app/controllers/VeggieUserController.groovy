@@ -95,4 +95,31 @@ class VeggieUserController {
             redirect(action: "list")
         }
     }
+    
+    
+    def login = {
+        if(params.cName)
+        return [cName:params.cName, aName:params.aName]
+    }
+    
+    def validate = {
+        def user = VeggieUser.findByUserName(params.username)
+        if(user && user.password == params.password){
+            session.user=user
+            if(params.cName)
+            redirect(controller:params.cName, action:params.aName)
+            else
+            redirect(controller:'veggieUser', action:'list')
+        }
+        else{
+            flash.message = "Invalid username and password."
+            render(view:'login')
+        }
+    }
+    
+    
+    def logout = {
+        session.user = null
+        redirect(url:resource(dir:''))
+    }
 }

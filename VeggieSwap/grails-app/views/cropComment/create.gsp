@@ -6,15 +6,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'cropComment.label', default: 'CropComment')}" />
-        <title><g:message code="default.create.label" args="[entityName]" /></title>
+        <title>Comment on this crop</title>
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
+            <span class="menuButton"><g:link class="list" action="list" id="${cropCommentInstance?.crop?.id}">Comments</g:link></span>
         </div>
         <div class="body">
-            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+            <h1>${cropCommentInstance?.crop.encodeAsHTML()} - New Comment</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -27,42 +27,43 @@
                 <div class="dialog">
                     <table>
                         <tbody>
+                          
+                        <g:if test="${cropCommentInstance.parent}">
+                          <input type ="hidden" name="parent.id" value="${cropCommentInstance.parent.id}"/>
+                           <input type ="hidden" name="author" value="${cropCommentInstance.parent.id}"/>
+                          <tr class="prop">
+                            <td valign ="top" class="name">
+                              <label>In Reply to : </label>
+                            </td>
+                            <td valign="top" class="value">
+                              $cropCommentInstance.parent.author}
+                            </td>
+                          </tr>
+                        </g:if>
+                          
+                          <input type="hidden" name="crop.id" value="${cropCommentInstance?.crop?.id}"/>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="content"><g:message code="cropComment.content.label" default="Content" /></label>
+                                    <label for="content">Comment content : </label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: cropCommentInstance, field: 'content', 'errors')}">
-                                    <g:textArea name="content" cols="40" rows="5" value="${cropCommentInstance?.content}" />
+                                  <textArea class="messageField" rows="5" cols="60" name="content">
+                                    ${fieldValue(bean:cropCommentInstance, field:content)}
+                                                                        </textArea>
                                 </td>
                             </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="parent"><g:message code="cropComment.parent.label" default="Parent" /></label>
+                                    <label for="author">Author:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: cropCommentInstance, field: 'parent', 'errors')}">
-                                    <g:select name="parent.id" from="${CropComment.list()}" optionKey="id" value="${cropCommentInstance?.parent?.id}" noSelection="['null': '']" />
+                                <td valign="top" class="value ${hasErrors(bean:cropCommentInstance,field:'author','errors')}">
+                                    <g:select optionKey="id" from="${VeggieUser.list()}" name="author.id" value="${cropCommentInstance?.author?.id}" ></g:select>
                                 </td>
-                            </tr>
+                            </tr> 
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="author"><g:message code="cropComment.author.label" default="Author" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: cropCommentInstance, field: 'author', 'errors')}">
-                                    <g:select name="author.id" from="${VeggieUser.list()}" optionKey="id" value="${cropCommentInstance?.author?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="crop"><g:message code="cropComment.crop.label" default="Crop" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: cropCommentInstance, field: 'crop', 'errors')}">
-                                    <g:select name="crop.id" from="${Crop.list()}" optionKey="id" value="${cropCommentInstance?.crop?.id}"  />
-                                </td>
-                            </tr>
+                            
                         
                         </tbody>
                     </table>

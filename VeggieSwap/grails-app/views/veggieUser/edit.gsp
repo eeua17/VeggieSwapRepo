@@ -24,7 +24,7 @@
                 <g:renderErrors bean="${veggieUserInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form method="post" >
+            <g:form method="post"  enctype="multipart/form-data">
                 <g:hiddenField name="id" value="${veggieUserInstance?.id}" />
                 <g:hiddenField name="version" value="${veggieUserInstance?.version}" />
                 <div class="dialog">
@@ -91,6 +91,15 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: veggieUserInstance, field: 'postcode', 'errors')}">
                                     <g:textField name="postcode" value="${veggieUserInstance?.postcode}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="pic"><g:message code="veggieUser.pic.label" default="Pic" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: veggieUserInstance, field: 'pic', 'errors')}">
+                                    <input type="file" id="pic" name="pic" />
                                 </td>
                             </tr>
                         

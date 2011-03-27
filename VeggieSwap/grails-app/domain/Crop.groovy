@@ -1,14 +1,17 @@
 class Crop {
 
     Produce produce
-    VeggieUser grower
+    VeggieUser grower   
     
     Date plantDate
     Date estHarvestDate
     Date actHarvestDate
     String estYield
-    String actYield
+    String actYield     
     
+    String toString(){
+        "${produce.toString()}"
+    }
     
     static constraints = {
         produce(nullable:false)

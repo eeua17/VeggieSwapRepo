@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'crop.label', default: 'Crop')}" />
-        <title><g:message code="default.show.label" args="[entityName]" /></title>
+        <title>${fieldValue(bean:cropInstance, field:'grower')} : ${fieldValue(bean:cropInstance, field:'produce')}</title>
     </head>
     <body>
         <div class="nav">
@@ -14,20 +14,13 @@
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <h1>${fieldValue(bean:cropInstance, field:'grower')} : ${fieldValue(bean:cropInstance, field:'produce')}</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="dialog">
                 <table>
                     <tbody>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="crop.id.label" default="Id" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: cropInstance, field: "id")}</td>
-                            
-                        </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="crop.produce.label" default="Produce" /></td>
@@ -46,14 +39,14 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="crop.plantDate.label" default="Plant Date" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${cropInstance?.plantDate}" /></td>
+                            <td valign="top" class="value"><g:formatDate format="dd MMM yyyy" date="${cropInstance?.plantDate}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="crop.estHarvestDate.label" default="Est Harvest Date" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${cropInstance?.estHarvestDate}" /></td>
+                            <td valign="top" class="value"><g:formatDate format="dd MMM yyyy" date="${cropInstance?.estHarvestDate}" /></td>
                             
                         </tr>
                     
@@ -67,7 +60,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="crop.actHarvestDate.label" default="Act Harvest Date" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${cropInstance?.actHarvestDate}" /></td>
+                            <td valign="top" class="value"><g:formatDate format="dd MMM yyyy" date="${cropInstance?.actHarvestDate}" /></td>
                             
                         </tr>
                     
@@ -82,11 +75,8 @@
                             <td valign="top" class="name"><g:message code="crop.comments.label" default="Comments" /></td>
                             
                             <td valign="top" style="text-align: left;" class="value">
-                                <ul>
-                                <g:each in="${cropInstance.comments}" var="c">
-                                    <li><g:link controller="cropComment" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
-                                </g:each>
-                                </ul>
+                              <g:link controller="cropComment" action="list" id="${cropInstance.id}">View Comments</g:link>
+                               
                             </td>
                             
                         </tr>

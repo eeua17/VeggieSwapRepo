@@ -8,7 +8,19 @@ class CropCommentController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [cropCommentInstanceList: CropComment.list(params), cropCommentInstanceTotal: CropComment.count()]
+        def list
+        def count
+        def crop = Crop.get(params.id)
+        if(crop){
+            list = CropComment.findAllByCrop(crop, params)
+            count = CropComment.countByCrop(crop)
+        }
+        else{
+            list = Crop.list(params)
+            count = Crop.count()
+        }
+        render(view: 'ajaxList',
+        model : [cropCommentInstanceList: list, cropCommentInstanceTotal: count, crop :crop])
     }
 
     def create = {
@@ -95,4 +107,23 @@ class CropCommentController {
             redirect(action: "list")
         }
     }
+    
+    
+    def showDetail = {
+        def cropCommentInstance = cropComment.get(params.id)
+        if(cropCommentInstance) {
+            render(template:"details", model:[cropCommentInstance:cropCommentInstance])
+        }
+        else {
+            render "No message was found with id: ${params.id}"
+            
+            
+        }
+    }
+        def reply = {
+            def parent = cropComment.get(params.id)
+            def cropCommentInstance = new CropComment(parent:parent, crop:parent.crop)
+            render(view:'create', model:['cropCommentInstance': cropCommentInstance])
+        }
+    
 }

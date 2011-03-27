@@ -7,6 +7,7 @@ class VeggieUser {
     String aboutMe
     String website
     String postcode
+    byte[] pic
     
     static hasMany = [  crops:Crop,
                         friends:VeggieUser]
@@ -24,5 +25,6 @@ class VeggieUser {
         aboutMe(nullable:true, blank:true, maxSize:5000)
         website(nullable:true, blank:true)
         postcode(nullable:true, blank:true)
+        pic(nullable:true, maxSize:1000000)
     }
 }
