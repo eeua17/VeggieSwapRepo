@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="Rachael-Pc" name="VeggieUserTests" tests="1" time="0.238" timestamp="2011-03-26T14:10:33">
+  <properties />
+  <testcase classname="VeggieUserTests" name="testToString" time="0.222" />
+  <system-out><![CDATA[--Output from testToString--
+]]></system-out>
+  <system-err><![CDATA[--Output from testToString--
+]]></system-err>
+</testsuite>
